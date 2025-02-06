@@ -1,31 +1,56 @@
-// src/App.js
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
+import logo from './logo.svg'; // Add your logo image in the src folder
 
-const App = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);  // New state to handle loading
-  const [error, setError] = useState(null);  // New state to handle errors
+const Home = () => {
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    // Fetching the products from the Spring Boot backend API
+  return (
+    <div className="home">
+      <header className="home-header">
+        <img src={logo} alt="Madhu Stationery Logo" className="logo" />
+        <h1>Madhu Stationery</h1>
+      </header>
+      <div className="home-content">
+        <h2 className="big-title">Welcome to Madhu Stationery</h2>
+        <p>Your one-stop shop for all stationery needs!</p>
+        <button onClick={() => navigate('/products')}>See Products</button>
+      </div>
+    </div>
+  );
+};
+
+const Products = () => {
+  const [products, setProducts] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState(null);
+  const navigate = useNavigate(); // For navigating back to Home
+
+  React.useEffect(() => {
     fetch('http://localhost:8080/api/products')
       .then((response) => response.json())
       .then((data) => {
         setProducts(data);
-        setLoading(false); // Stop loading when data is fetched
+        setLoading(false);
       })
       .catch((error) => {
         setError(error);
-        setLoading(false); // Stop loading if there's an error
+        setLoading(false);
       });
   }, []);
 
   return (
     <div className="app">
       <header className="app-header">
-        <h1>Product List</h1>
+        <img src={logo} alt="Madhu Stationery Logo" className="logo" />
+        <h1>Madhu Stationery</h1>
       </header>
+
+      {/* Back to Home Button */}
+      <button className="back-button" onClick={() => navigate('/')}>🏠 Back to Home</button>
+
+      <h2>Our Products</h2>
       <div className="product-list">
         {loading ? (
           <p>Loading products...</p>
@@ -43,6 +68,17 @@ const App = () => {
         )}
       </div>
     </div>
+  );
+};
+
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/products" element={<Products />} />
+      </Routes>
+    </Router>
   );
 };
 

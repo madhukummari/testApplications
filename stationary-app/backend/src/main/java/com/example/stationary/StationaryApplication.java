@@ -22,7 +22,9 @@ public class StationaryApplication {
             productRepository.save(new Product("Pen", 1.5));
             productRepository.save(new Product("Notebook", 2.0));
             productRepository.save(new Product("Eraser", 0.5));
+            productRepository.save(new Product("Slate", 2.0));
 
+            
             // Log confirmation message to the console
             System.out.println("Sample products have been added.");
         };
