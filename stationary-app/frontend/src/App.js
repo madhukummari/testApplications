@@ -31,10 +31,12 @@ const Products = () => {
     fetch('http://localhost:8080/api/products')
       .then((response) => response.json())
       .then((data) => {
+        console.log("Fetched products:", data); // Debugging
         setProducts(data);
         setLoading(false);
       })
       .catch((error) => {
+        console.error("Error fetching products:", error);
         setError(error);
         setLoading(false);
       });
