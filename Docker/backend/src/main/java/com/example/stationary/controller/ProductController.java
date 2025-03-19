@@ -3,14 +3,16 @@ package com.example.stationary.controller;
 import com.example.stationary.model.Product;
 import com.example.stationary.repository.ProductRepository;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@CrossOrigin(origins = "http://localhost:3000") // Allow frontend to access API
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
+
     private final ProductRepository productRepository;
+    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
     public ProductController(ProductRepository productRepository) {
         this.productRepository = productRepository;
@@ -18,6 +20,12 @@ public class ProductController {
 
     @GetMapping
     public List<Product> getAllProducts() {
-        return productRepository.findAll();
+        List<Product> products = productRepository.findAll();
+
+        // Log fetched products in Java console
+        logger.info("Fetched Products: {}", products);
+        System.out.println("Fetched Products: " + products);
+
+        return products;
     }
 }
