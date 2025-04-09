@@ -13,3 +13,9 @@ variable "public_subnets" {
 variable "azs" {
   default = ["us-east-1a", "us-east-1b"]
 }
+variable "ssh_key_name"{
+
+  description = "SSH key name for EC2 instances"
+  type        = string
+  default     = "keypair2025.pem"
+}

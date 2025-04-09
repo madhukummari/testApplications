@@ -1,0 +1,28 @@
+# Spring Boot
+target/
+build/
+out/
+*.jar
+*.war
+*.ear
+.idea/
+*.iml
+*.ipr
+*.iws
+*.log
+logs/
+application.properties
+application-dev.properties
+
+# Node.js
+node_modules/
+dist/
+build/
+out/
+.env
+.env.local
+.vscode/
+
+
+#terraform
+.terraform/
