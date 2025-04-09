@@ -44,7 +44,8 @@
 8. Jenkins multibranch pipelines
 9. kubernetes architecture
 10.  HPA pods shoud 3 but 4 created why
-ss
+11. how do you backup jenkins
+12. if the logs on the jenkins console are stopped where you can check altenately
 
 
 
