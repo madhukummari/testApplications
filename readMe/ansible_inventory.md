@@ -56,13 +56,13 @@ all:
 ---
 
 ## 📌 Inventory File Sections & Syntax
-| **Section** | **Description** | **Example** |
-|------------|----------------|------------|
-| **`[group]`** | Defines a host group | `[web_servers]` |
-| **`host`** | Individual host entry | `web1.example.com` |
-| **`ansible_user`** | SSH user for the host | `ansible_user=ubuntu` |
-| **`ansible_port`** | SSH port | `ansible_port=2222` |
-| **`children`** | Defines sub-groups (YAML) | `children:` |
+| **Section**        | **Description**           |  **Example** |
+|--------------------|---------------------------|------------|
+| **`[group]`**      | Defines a host group      | `[web_servers]` |
+| **`host`**         | Individual host entry     | `web1.example.com` |
+| **`ansible_user`** | SSH user for the host     | `ansible_user=ubuntu` |
+| **`ansible_port`** | SSH port                  | `ansible_port=2222` |
+| **`children`**     | Defines sub-groups (YAML) | `children:` |
 
 ---
 
