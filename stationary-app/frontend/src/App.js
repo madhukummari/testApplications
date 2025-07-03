@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
-import logo from './logo.svg'; // Add your logo image in the src folder
+import logo from './logo.svg'; // Make sure logo.svg is in the src folder
 
+// Home Page
 const Home = () => {
   const navigate = useNavigate();
 
@@ -16,18 +17,22 @@ const Home = () => {
         <h2 className="big-title">Welcome to Madhu Stationery</h2>
         <p>Your one-stop shop for all stationery needs!</p>
         <button onClick={() => navigate('/products')}>See Products</button>
+        <button onClick={() => navigate('/add-product')} style={{ marginTop: '10px' }}>
+          ➕ Add Product
+        </button>
       </div>
     </div>
   );
 };
 
+// Products Page
 const Products = () => {
-  const [products, setProducts] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
-  const [error, setError] = React.useState(null);
-  const navigate = useNavigate(); // For navigating back to Home
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetch('http://localhost:8080/api/products')
       .then((response) => response.json())
       .then((data) => {
@@ -47,8 +52,8 @@ const Products = () => {
         <h1>Madhu Stationery</h1>
       </header>
 
-      {/* Back to Home Button */}
       <button className="back-button" onClick={() => navigate('/')}>🏠 Back to Home</button>
+      <button className="add-button" onClick={() => navigate('/add-product')}>➕ Add New Product</button>
 
       <h2>Our Products</h2>
       <div className="product-list">
@@ -71,12 +76,71 @@ const Products = () => {
   );
 };
 
+// Add Product Page
+const AddProduct = () => {
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const newProduct = {
+      name,
+      price: parseFloat(price)
+    };
+
+    fetch('http://localhost:8080/api/products', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newProduct)
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to add product');
+        return res.json();
+      })
+      .then(() => {
+        alert('Product added!');
+        navigate('/products');
+      })
+      .catch((err) => alert('Error: ' + err.message));
+  };
+
+  return (
+    <div className="add-product-form">
+      <h2>Add New Product</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={name}
+          placeholder="Product name"
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+        <input
+          type="number"
+          value={price}
+          placeholder="Product price"
+          onChange={(e) => setPrice(e.target.value)}
+          required
+        />
+        <button type="submit">Add Product</button>
+      </form>
+      <button onClick={() => navigate('/products')} style={{ marginTop: '10px' }}>
+        Back to Products
+      </button>
+    </div>
+  );
+};
+
+// ✅ Main App Component with Routes
 const App = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/add-product" element={<AddProduct />} />
       </Routes>
     </Router>
   );
