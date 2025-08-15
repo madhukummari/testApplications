@@ -33,7 +33,7 @@ const Products = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/products')
+    fetch(`${process.env.REACT_APP_API_URL}/api/products`)
       .then((response) => response.json())
       .then((data) => {
         setProducts(data);
@@ -90,7 +90,7 @@ const AddProduct = () => {
       price: parseFloat(price)
     };
 
-    fetch('http://localhost:8080/api/products', {
+    fetch(`${process.env.REACT_APP_API_URL}/api/products`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newProduct)

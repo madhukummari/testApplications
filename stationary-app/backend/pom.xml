@@ -14,7 +14,7 @@
     <groupId>com.example</groupId>
     <artifactId>stationary</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <name>stationary</name>
     <description>stationary project with Spring Boot and MongoDB</description>
